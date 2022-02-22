@@ -1,0 +1,323 @@
+openapi: 3.0.1
+info:
+  title: PhoneBanking Balance Api
+  version: v1-beta
+servers:
+- url: http://localhost
+paths:
+  /Ping:
+    get:
+      tags:
+      - PhoneBankingBalance
+      operationId: pingGET
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: text/plain
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      x-swagger-router-controller: PhoneBankingBalance
+  /PingMemberInteractionGuard:
+    get:
+      tags:
+      - PhoneBankingBalance
+      operationId: pingMemberInteractionGuardGET
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: string
+                x-content-type: text/plain
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+            text/json:
+              schema:
+                type: array
+                items:
+                  type: string
+      x-swagger-router-controller: PhoneBankingBalance
+  /Balance:
+    post:
+      tags:
+      - PhoneBankingBalance
+      operationId: balancePOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShareBalanceResponse'
+                x-content-type: text/plain
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShareBalanceResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ShareBalanceResponse'
+      x-swagger-router-controller: PhoneBankingBalance
+  /LoanBalance:
+    post:
+      tags:
+      - PhoneBankingBalance
+      operationId: loanBalancePOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RequestBalance'
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoanBalanceResponse'
+                x-content-type: text/plain
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoanBalanceResponse'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/LoanBalanceResponse'
+      x-swagger-router-controller: PhoneBankingBalance
+  /CreditCardBalance:
+    post:
+      tags:
+      - PhoneBankingBalance
+      operationId: creditCardBalancePOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestCreditCard'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RequestCreditCard'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RequestCreditCard'
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCardBalanceInfo'
+                x-content-type: text/plain
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCardBalanceInfo'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCardBalanceInfo'
+      x-swagger-router-controller: PhoneBankingBalance
+  /MortgageBalance:
+    post:
+      tags:
+      - PhoneBankingBalance
+      operationId: mortgageBalancePOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestDetail'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/RequestDetail'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RequestDetail'
+      responses:
+        "200":
+          description: Success
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/MortgageBalanceResponse'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MortgageBalanceResponse'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/MortgageBalanceResponse'
+      x-swagger-router-controller: PhoneBankingBalance
+components:
+  schemas:
+    CreditCardBalanceInfo:
+      type: object
+      properties:
+        cardNumber:
+          type: string
+          nullable: true
+        currentBalance:
+          type: number
+          format: double
+        currentAvailableCredit:
+          type: number
+          format: double
+      additionalProperties: false
+      example:
+        currentAvailableCredit: 6.02745618307040320615897144307382404804229736328125
+        currentBalance: 0.80082819046101150206595775671303272247314453125
+        cardNumber: cardNumber
+    LoanBalanceResponse:
+      type: object
+      properties:
+        loanId:
+          type: string
+          nullable: true
+        loanBalance:
+          type: number
+          format: double
+      additionalProperties: false
+      example:
+        loanId: loanId
+        loanBalance: 0.80082819046101150206595775671303272247314453125
+    MortgageBalanceResponse:
+      type: object
+      properties:
+        currentPrincipalBalance:
+          type: number
+          format: double
+      additionalProperties: false
+      example:
+        currentPrincipalBalance: 0.80082819046101150206595775671303272247314453125
+    RequestBalance:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+          nullable: true
+        pin:
+          type: string
+          nullable: true
+        shareId:
+          type: string
+          nullable: true
+        loanId:
+          type: string
+          nullable: true
+        share:
+          type: string
+          nullable: true
+        loan:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RequestCreditCard:
+      required:
+      - accountNumber
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        creditCardNumber:
+          type: string
+          nullable: true
+        bcuFederationUserId:
+          type: string
+          nullable: true
+        requestId:
+          type: string
+          nullable: true
+        pin:
+          type: string
+          nullable: true
+      additionalProperties: false
+    RequestDetail:
+      required:
+      - membershipNumber
+      - mortgageNumber
+      - pin
+      type: object
+      properties:
+        bcuFederationUserId:
+          type: string
+          nullable: true
+        requestId:
+          type: string
+          nullable: true
+        mortgageNumber:
+          pattern: "^[0-9]*$"
+          type: string
+        membershipNumber:
+          pattern: "^[0-9]*$"
+          type: string
+        pin:
+          pattern: "^[0-9]*$"
+          type: string
+      additionalProperties: false
+    ShareBalanceResponse:
+      type: object
+      properties:
+        shareId:
+          type: string
+          nullable: true
+        shareBalance:
+          type: number
+          format: double
+        maturityDate:
+          type: string
+          nullable: true
+      additionalProperties: false
+      example:
+        maturityDate: maturityDate
+        shareBalance: 0.80082819046101150206595775671303272247314453125
+        shareId: shareId
